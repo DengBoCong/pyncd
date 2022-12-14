@@ -1,0 +1,5 @@
+prune examples
+prune tests
+prune README.md
+include README.rst
+include requirements.txt
