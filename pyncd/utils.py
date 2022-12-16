@@ -9,11 +9,11 @@ from typing import Any, Iterable, Union, Optional
 
 
 def convert_multigraph(
-    graph: Iterable[Any],
-    weight: Optional[Union[str, bool]] = False,
-    default: Union[int, float] = None,
-    is_directed: bool = False,
-    **kwargs) -> Union[nx.Graph, nx.DiGraph]:
+        graph: Iterable[Any],
+        weight: Optional[Union[str, bool]] = False,
+        default: Union[int, float] = None,
+        is_directed: bool = False,
+        **kwargs) -> Union[nx.Graph, nx.DiGraph]:
     """Convert a Multigraph to normal Graph
 
     Parameters
@@ -36,10 +36,10 @@ def convert_multigraph(
         Update attributes for all nodes in nodes.
         Node attributes specified in nodes as a tuple take
         precedence over attributes specified via keyword arguments.
-    
+
     Returns
     ----------
-        networkx.Graph or networkx.DiGraph
+        NetworkX Graph or DiGraph
     """
     if is_directed:
         new_graph = nx.DiGraph()
