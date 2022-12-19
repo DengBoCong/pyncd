@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""A set of utility functions to support community detection.
+"""A set of conversion functions to support community detection.
 """
 # Author: DengBoCong <bocongdeng@gmail.com>
 # License: BSD 2 clause
@@ -14,7 +14,7 @@ def convert_multigraph(
         default: Union[int, float] = None,
         is_directed: bool = False,
         **kwargs) -> Union[nx.Graph, nx.DiGraph]:
-    """Convert a Multigraph to normal Graph
+    """Convert a MultiGraph to normal Graph
 
     Parameters
     ----------
@@ -24,8 +24,8 @@ def convert_multigraph(
         A container of (node, attribute dict) tuples.
         Node attributes are updated using the attribute dict.
     weight : string or bool, optional (default=False)
-        The edge attribute returned in 3-tuple (u, v, ddict[data]).
-        If True, return edge attribute dict in 3-tuple (u, v, ddict).
+        The edge attribute returned in 3-tuple (u, v, dict[data]).
+        If True, return edge attribute dict in 3-tuple (u, v, dict).
         If False, return 2-tuple (u, v).
     default: value, optional (default=None)
         Value used for edges that don’t have the requested attribute.
@@ -38,8 +38,8 @@ def convert_multigraph(
         precedence over attributes specified via keyword arguments.
 
     Returns
-    ----------
-        NetworkX Graph or DiGraph
+    -------
+        NetworkX Graph or DiGraph (`weight` defaults to the name of the edge weights)
     """
     if is_directed:
         new_graph = nx.DiGraph()

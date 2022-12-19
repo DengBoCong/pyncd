@@ -5,14 +5,11 @@
 # License: BSD 2 clause
 
 import abc
+from typing import Any
 
 
 class BaseDetector(object, metaclass=abc.ABCMeta):
     """Abstract class for all community detection algorithms.
-
-    Parameters
-    ----------
-
     """
 
     @abc.abstractmethod
@@ -20,11 +17,21 @@ class BaseDetector(object, metaclass=abc.ABCMeta):
         pass
 
     @abc.abstractmethod
-    def gen_partition(self):
+    def best_partition(self, graph: Any):
+        """Find the best partition of a graph using the Louvain Community Detection Algorithm.
+
+        Parameters
+        ----------
+        graph : The graph from which to detect communities
+
+        Returns
+        -------
+        NetworkX graph
+            Each node represents one community and contains all the nodes that constitute it.
+        """
         pass
 
-
-    def draw(self):
-        pass
+    # def draw(self):
+    #     pass
 
 
