@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Louvain Community Detector.
+"""Fast unfolding of Communities in Large Networks (Louvain)
 Reference implementation: https://github.com/networkx/networkx/blob/main/networkx/algorithms/community/louvain.py
 """
 # Author: Bocong Deng <bocongdeng@gmail.com>
