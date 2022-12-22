@@ -1,7 +1,6 @@
 import os
 import setuptools
 
-
 here_dir = os.path.abspath(os.path.dirname(__file__))
 
 with open(os.path.join(here_dir, "README.rst"), encoding="utf-8") as file:
@@ -10,9 +9,15 @@ with open(os.path.join(here_dir, "README.rst"), encoding="utf-8") as file:
 with open(os.path.join(here_dir, "requirements.txt"), encoding="utf-8") as file:
     requirements = file.read().splitlines()
 
+with open(os.path.join(here_dir, "pyncd", "__init__.py"), encoding="utf-8") as file:
+    for line in file:
+        if line.startswith("__version__"):
+            version = line.strip().split()[-1][1:-1]
+            break
+
 setuptools.setup(
     name="pyncd",
-    version="0.1.0",
+    version=version,
     author="BoCong Deng",
     author_email="bocongdeng@gmail.com",
     description="A Python Library for Network Community Detection",
@@ -22,7 +27,7 @@ setuptools.setup(
     url="https://github.com/DengBoCong/pyncd",
     keywords=["community detection", "deep community detection", "deep community detection",
               "deep learning", "network analysis", "graph mining"],
-    packages=setuptools.find_packages(exclude=['test']),
+    packages=setuptools.find_packages(exclude=["test"]),
     include_package_data=True,
     install_requires=requirements,
     classifiers=[
