@@ -12,6 +12,7 @@ from collections import defaultdict, deque
 from networkx.algorithms.community import modularity
 from pyncd.models.base import BaseDetector
 from pyncd.utils.converter import convert_multigraph
+from pyncd.utils.tools import check_is_fitted
 from typing import Union, List, Set, Any, Tuple, Iterator
 
 
@@ -41,6 +42,16 @@ class LouvainDetector(BaseDetector):
         then the algorithm stops and returns the resulting communities.
     random_state： int, optional (default=123)
         the seed used by the random
+
+    Attributes
+    ----------
+    decision_com_graph_ : Networkx Graph
+        The graph of best communities.
+        Each node represents one community and contains all the nodes that constitute it.
+    decision_com_num_ : int
+        The number of best communities
+    decision_com_node2com_ : dict
+        Mapping of nodes and best communities index.
     """
 
     def __init__(self, resolution: float = 1, threshold: float = 0.0000001, random_state: int = 123) -> None:
@@ -50,8 +61,12 @@ class LouvainDetector(BaseDetector):
         self.random_state = random_state
         random.seed(random_state)
 
-    def best_partition(self, graph: nx.Graph, weight: Union[str, None] = "weight") -> nx.Graph:
-        """Find the best partition of a graph using the Louvain Community Detection Algorithm.
+        self.decision_com_graph_ = None
+        self.decision_com_num_ = None
+        self.decision_com_node2com_ = None
+
+    def fit(self, graph: nx.Graph, weight: Union[str, None] = "weight") -> object:
+        """Fit detector. Find the best partition of a graph using the Louvain Community Detection Algorithm.
 
         Parameters
         ----------
@@ -63,16 +78,8 @@ class LouvainDetector(BaseDetector):
 
         Returns
         -------
-        NetworkX graph
-            Each node represents one community and contains all the nodes that constitute it.
-
-        Examples
-        --------
-        >>> import networkx as nx
-        >>> from pyncd.models.louvain import LouvainDetector
-        >>> G = nx.petersen_graph()
-        >>> LouvainDetector().best_partition(G)
-        [(0, {'nodes': {0, 4, 5, 7, 9}}), (1, {'nodes': {1, 2, 3, 6, 8}})]
+        self : object
+            Fitted detector.
 
         Notes
         -----
@@ -81,7 +88,37 @@ class LouvainDetector(BaseDetector):
         """
         generator = self.gen_partition(graph, weight)
         queue = deque(generator, maxlen=1)
-        return queue.pop()[0]
+        self.decision_com_graph_ = queue.pop()[0]
+        self.decision_com_num_ = len(self.decision_com_graph_)
+        self.decision_com_node2com_ = {}
+        for com, attr in self.decision_com_graph_.nodes(data=True):
+            for node in attr["nodes"]:
+                self.decision_com_node2com_[node] = com
+
+        return self
+
+    def decision_function(self, nodes: List[Any]) -> List[Any]:
+        """Estimate partition of nodes using the fitted detector
+
+        Parameters
+        ----------
+        nodes : The input nodes.
+
+        Returns
+        -------
+        partitions : The communities index of the input nodes.
+        Examples
+        --------
+        >>> import networkx as nx
+        >>> from pyncd.models.louvain import LouvainDetector
+        >>> G = nx.petersen_graph()
+        >>> detector = LouvainDetector
+        >>> detector.fit(G)
+        >>> detector.decision_function([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+        [0, 1, 1, 1, 0, 0, 1, 0, 1, 0]
+        """
+        check_is_fitted(self, ["decision_com_graph_", "decision_com_num_", "decision_com_node2com_"])
+        return [self.decision_com_node2com_[node] for node in nodes]
 
     def gen_partition(
             self,
