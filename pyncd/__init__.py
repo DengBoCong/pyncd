@@ -5,7 +5,7 @@ PyNCD
 
 PyNCD is an open-source Python library for network community detection.
 
-See https://xxx for complete documentation.
+See https://pyncd.readthedocs.io/ for complete documentation.
 """
 
 __version__ = '0.1.0'

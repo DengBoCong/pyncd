@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """A set of conversion functions to support community detection.
 """
-# Author: DengBoCong <bocongdeng@gmail.com>
+# Author: Bocong Deng <bocongdeng@gmail.com>
 # License: BSD 2 clause
 
 import networkx as nx
