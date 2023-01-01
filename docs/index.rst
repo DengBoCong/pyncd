@@ -1,7 +1,7 @@
 .. pyncd documentation master file, created by
-   sphinx-quickstart on Wed Dec 21 11:55:16 2022.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+sphinx-quickstart on Wed Dec 21 11:55:16 2022.
+You can adapt this file completely to your liking, but it should at least
+contain the root `toctree` directive.
 
 Welcome to PyNCD documentation!
 ===============================
@@ -55,3 +55,51 @@ Welcome to PyNCD documentation!
 ----
 
 PyNCD is an open-source **Python library** for **network community detection**. PyNCD provides unified low-code implementation of different detection models based on PyTorch
+
+
+----
+
+
+.. toctree::
+   :maxdepth: 2
+   :hidden:
+   :caption: Getting Started
+
+
+   install
+   model_persistence
+   fast_train
+   example
+   benchmark
+
+
+.. toctree::
+   :maxdepth: 2
+   :hidden:
+   :caption: Documentation
+
+   api_cc
+   pyncd
+
+
+.. toctree::
+   :maxdepth: 2
+   :hidden:
+   :caption: Additional Information
+
+   issues
+   relevant_knowledge
+   pubs
+   faq
+   about
+
+
+----
+
+
+.. rubric:: References
+
+.. bibliography::
+   :cited:
+   :labelprefix: A
+   :keyprefix: a-
