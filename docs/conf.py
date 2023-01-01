@@ -8,8 +8,14 @@ import sys
 from datetime import date
 
 sys.path.insert(0, os.path.abspath(".."))
+pyncd_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+version_path = os.path.join(pyncd_dir, "pyncd", "__init__.py")
 
-import pyncd
+with open(version_path, "r", encoding="utf-8") as file:
+    for line in file:
+        if line.startswith("__version__"):
+            __version__ = line.split()[-1][1:-1]
+            break
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
@@ -22,9 +28,9 @@ author = "Bocong Deng"
 # other places throughout the built documents.
 #
 # The short X.Y version.
-version = pyncd.__version__
+version = __version__
 # The full version, including alpha/beta/rc tags
-release = pyncd.__version__
+release = __version__
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
