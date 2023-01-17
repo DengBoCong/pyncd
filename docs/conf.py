@@ -43,6 +43,7 @@ extensions = [
     "sphinx.ext.imgmath",
     "sphinx.ext.viewcode",
     "sphinxcontrib.bibtex",
+    "sphinx.ext.napoleon",
 ]
 
 bibtex_bibfiles = ["zreferences.bib"]

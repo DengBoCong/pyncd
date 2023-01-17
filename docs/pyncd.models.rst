@@ -11,15 +11,18 @@ pyncd.models.louvain module
     :show-inheritance:
     :inherited-members:
 
+pyncd.models.label_propagation module
+-------------------------------------
 
-Module contents
----------------
-
-.. automodule:: pyncd.models
+.. automodule:: pyncd.models.label_propagation
     :members:
     :undoc-members:
     :show-inheritance:
     :inherited-members:
+
+
+Module contents
+---------------
 
 .. rubric:: References
 

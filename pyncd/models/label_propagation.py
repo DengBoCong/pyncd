@@ -38,6 +38,16 @@ class LPADetector(BaseDetector):
         The parameter of the node's in edge, which takes effect in a directed graph.
     random_state： int, default=123
         the seed used by the random
+
+    Attributes
+    ----------
+    decision_com_graph_ : Networkx Graph
+        The graph of best communities.
+        Each node represents one community and contains all the nodes that constitute it.
+    decision_com_num_ : int
+        The number of best communities
+    decision_com_node2com_ : dict
+        Mapping of nodes and best communities index.
     """
 
     def __init__(self, async_type: str = "async", alpha: float = 1.0, beta: float = 1.0, random_state: int = 123):
