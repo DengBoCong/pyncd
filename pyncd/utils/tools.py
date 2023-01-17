@@ -5,15 +5,16 @@
 # License: BSD 2 clause
 
 
+import networkx as nx
 import numpy as np
 import os
 import random
 import torch
 from inspect import isclass
-from typing import Any, Union, List, Tuple
+from typing import Any, Union, List, Tuple, Dict, Set
 
 
-def set_seed(manual_seed: int):
+def set_seed(manual_seed: int) -> None:
     """Set random seeds
     """
     random.seed(manual_seed)
@@ -90,3 +91,17 @@ def check_is_fitted(
 
     if not fitted:
         raise RuntimeError(msg % {"name": type(detector).__name__})
+
+
+def color_network(graph: nx.Graph) -> Dict[int, Set[Any]]:
+    """Colors the network so that neighboring nodes all have distinct colors.
+    Returns a dict keyed by color to a set of nodes with that color.
+    """
+    coloring = dict()  # color => set(node)
+    colors = nx.coloring.greedy_color(graph)
+    for node, color in colors.items():
+        if color in coloring:
+            coloring[color].add(node)
+        else:
+            coloring[color] = {node}
+    return coloring
